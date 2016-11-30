@@ -37,5 +37,9 @@
     titleHeaderSection:(NSString *)titleHeaderSection
     titleFooterSection:(NSString *)titleFooterSection;
 
+// REW Begin
++(void)setOptionsDetailCellClass:(Class)value;
+-(NSArray *)selectorOptions;
+// REW End
 
 @end

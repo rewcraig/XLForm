@@ -199,6 +199,21 @@
 }
 
 #pragma mark - CellClasses
+static Class _optionsViewController;
+
++(Class)optionsViewControllerClass {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_optionsViewController) {
+            _optionsViewController = [XLFormOptionsViewController class];
+        }
+    });
+    return _optionsViewController;
+}
+
++(void)setOptionsViewControllerClass:(Class)value {
+    _optionsViewController = value;
+}
 
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes
 {
@@ -716,6 +731,10 @@
     return [[self.form.formSections objectAtIndex:section] title];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return 44.0;
+}
+
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
     return [[self.form.formSections objectAtIndex:section] footerTitle];
@@ -926,7 +945,6 @@
     }
     [self.tableView endEditing:YES];
 }
-
 
 #pragma mark - Segue
 

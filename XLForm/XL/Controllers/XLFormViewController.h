@@ -36,6 +36,7 @@
 @class XLFormSectionDescriptor;
 @class XLFormDescriptor;
 @class XLFormBaseCell;
+@class XLFormOptionsViewController;
 
 typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
     XLFormRowNavigationDirectionPrevious = 0,
@@ -76,6 +77,10 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 
 -(void)ensureRowIsVisible:(XLFormRowDescriptor *)inlineRowDescriptor;
 
+// REW Begin - need someway to style the options
+-(void)optionsViewControllerCreated:(XLFormOptionsViewController *)optionsViewController;
+// REW End
+
 @end
 
 @interface XLFormViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
@@ -89,6 +94,12 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
++(Class)optionsViewControllerClass;
++(void)setOptionsViewControllerClass:(Class)value;
+
+// REW Start - needs to be accessible
+-(void)configureCell:(XLFormBaseCell*) cell;
+// REW End
 
 -(void)performFormSelector:(SEL)selector withObject:(id)sender;
 

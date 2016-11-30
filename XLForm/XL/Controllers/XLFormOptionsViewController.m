@@ -47,6 +47,23 @@
 @synthesize rowDescriptor = _rowDescriptor;
 @synthesize popoverController = __popoverController;
 
+
+static Class _optionsDetailCell;
+
++(Class)optionsDetailCellClass {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_optionsDetailCell) {
+            _optionsDetailCell = [XLFormRightDetailCell class];
+        }
+    });
+    return _optionsDetailCell;
+}
+
++(void)setOptionsDetailCellClass:(Class)value {
+    _optionsDetailCell = value;
+}
+
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -71,7 +88,7 @@
 {
     [super viewDidLoad];
     // register option cell
-    [self.tableView registerClass:[XLFormRightDetailCell class] forCellReuseIdentifier:CELL_REUSE_IDENTIFIER];
+    [self.tableView registerClass:[[XLFormOptionsViewController optionsDetailCellClass] class] forCellReuseIdentifier:CELL_REUSE_IDENTIFIER];
 }
 
 
@@ -84,7 +101,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
     id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row];
     cell.textLabel.text = [self valueDisplayTextForOption:cellObject];
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
