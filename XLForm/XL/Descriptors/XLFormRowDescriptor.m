@@ -145,6 +145,7 @@ CGFloat XLFormRowInitialHeight = -2;
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         }
         _cell.rowDescriptor = self;
+        
         NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"UITableViewCell must extend from XLFormBaseCell");
         [self configureCellAtCreationTime];
     }

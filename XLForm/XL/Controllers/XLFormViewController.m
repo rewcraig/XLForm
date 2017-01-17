@@ -134,6 +134,11 @@
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 44.0;
     }
+     // REW Begin - Fix iOS9 crash with estimated section header height
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+        self.tableView.estimatedSectionHeaderHeight = 44;
+    }
+    // REW End
     if (self.form.title){
         self.title = self.form.title;
     }
@@ -199,6 +204,21 @@
 }
 
 #pragma mark - CellClasses
+static Class _optionsViewController;
+
++(Class)optionsViewControllerClass {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_optionsViewController) {
+            _optionsViewController = [XLFormOptionsViewController class];
+        }
+    });
+    return _optionsViewController;
+}
+
++(void)setOptionsViewControllerClass:(Class)value {
+    _optionsViewController = value;
+}
 
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes
 {
@@ -716,6 +736,12 @@
     return [[self.form.formSections objectAtIndex:section] title];
 }
 
+// REW Begin - Fix crash on iOS9 with estimated section header heights
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+//    return 44.0;
+//}
+// REW End
+
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
     return [[self.form.formSections objectAtIndex:section] footerTitle];
@@ -926,7 +952,6 @@
     }
     [self.tableView endEditing:YES];
 }
-
 
 #pragma mark - Segue
 

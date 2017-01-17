@@ -67,10 +67,13 @@
     NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
     NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
-    XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
+    // REW Begin - add boundary check
     BOOL result = [super resignFirstResponder];
     if (result) {
-        [formSection removeFormRow:nextFormRow];
+        if (nextRowPath.section < self.formViewController.form.formSections.count) {
+            XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
+            [formSection removeFormRow:nextFormRow];
+        }
     }
     return result;
 }

@@ -26,7 +26,7 @@
 #import "XLForm.h"
 #import "XLFormBaseCell.h"
 
-@interface XLFormPickerCell : XLFormBaseCell<XLFormInlineRowDescriptorCell>
+@interface XLFormPickerCell : XLFormBaseCell<XLFormInlineRowDescriptorCell, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic) UIPickerView * pickerView;
 

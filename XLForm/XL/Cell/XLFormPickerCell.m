@@ -26,7 +26,7 @@
 #import "UIView+XLFormAdditions.h"
 #import "XLFormPickerCell.h"
 
-@interface XLFormPickerCell() <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface XLFormPickerCell()
 
 @end
 
