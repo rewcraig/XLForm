@@ -167,7 +167,10 @@ static Class _optionsDetailCell;
         }
         if (self.popoverController){
             [self.popoverController dismissPopoverAnimated:YES];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
+#pragma clang diagnostic pop
         }
         else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
             [self.navigationController popViewControllerAnimated:YES];

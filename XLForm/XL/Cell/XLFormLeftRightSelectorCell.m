@@ -231,6 +231,8 @@
     }
 #ifndef XL_APP_EXTENSIONS
     else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                   delegate:self cancelButtonTitle:nil
                                                     destructiveButtonTitle:nil
@@ -242,7 +244,7 @@
         actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
         actionSheet.tag = [self.rowDescriptor hash];
         [actionSheet showInView:self.formViewController.view];
-        
+#pragma clang diagnostic pop
         
     }
 #endif
