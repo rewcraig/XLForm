@@ -32,8 +32,10 @@
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverControllerDelegate>
 
 @property (nonatomic) UIPickerView * pickerView;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @property (nonatomic) UIPopoverController *popoverController;
-
+#pragma clang diagnostic pop
 @end
 
 
@@ -171,7 +173,10 @@
                 if (self.popoverController && self.popoverController.popoverVisible) {
                     [self.popoverController dismissPopoverAnimated:NO];
                 }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 self.popoverController = [[UIPopoverController alloc] initWithContentViewController:selectorViewController];
+#pragma clang diagnostic pop
                 self.popoverController.delegate = self;
                 if ([selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorPopoverViewController)]){
                     ((id<XLFormRowDescriptorPopoverViewController>)selectorViewController).popoverController = self.popoverController;
@@ -195,7 +200,10 @@
             [controller optionsViewControllerCreated:optionsViewController];
 
 			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
-				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
+#pragma clang diagnostic pop
                 self.popoverController.delegate = self;
                 optionsViewController.popoverController = self.popoverController;
                 if (self.detailTextLabel.window){
@@ -225,7 +233,10 @@
         [controller optionsViewControllerCreated:optionsViewController];
 
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
+#pragma clang diagnostic pop
             self.popoverController.delegate = self;
             optionsViewController.popoverController = self.popoverController;
             if (self.detailTextLabel.window){
@@ -288,6 +299,8 @@
         }
 #ifndef XL_APP_EXTENSIONS
         else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                       delegate:self
                                                              cancelButtonTitle:nil
@@ -299,6 +312,7 @@
             actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             actionSheet.tag = [self.rowDescriptor hash];
             [actionSheet showInView:controller.view];
+#pragma clang diagnostic pop
         }
 #endif
 #endif
@@ -340,6 +354,8 @@
         }
 #ifndef XL_APP_EXTENSIONS
         else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                  message:nil
                                                                 delegate:self
@@ -351,6 +367,7 @@
             alertView.cancelButtonIndex = [alertView addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
             alertView.tag = [self.rowDescriptor hash];
             [alertView show];
+#pragma clang diagnostic pop
         }
 #endif
 #endif
@@ -498,9 +515,13 @@
 
 #pragma mark - UIPopoverControllerDelegate
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+#pragma clang diagnostic pop
 {
     [self.formViewController.tableView reloadData];
 }
+
 
 @end

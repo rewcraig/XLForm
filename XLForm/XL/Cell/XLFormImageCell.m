@@ -29,7 +29,10 @@
 
 @interface XLFormImageCell() <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     UIPopoverController *popoverController;
+#pragma clang diagnostic pop
     UIImagePickerController *imagePickerController;
     UIAlertController *alertController;
 }
@@ -113,11 +116,14 @@
     imagePickerController.sourceType = source;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         popoverController = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
         [popoverController presentPopoverFromRect: self.contentView.frame
                                            inView: self.formViewController.view
                          permittedArrowDirections: UIPopoverArrowDirectionAny
                                          animated: YES];
+#pragma clang diagnostic pop
     } else {
         [self.formViewController presentViewController: imagePickerController
                                               animated: YES

@@ -501,12 +501,15 @@ static Class _optionsViewController;
     }
 #ifndef XL_APP_EXTENSIONS
     else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil)
                                                              message:error.localizedDescription
                                                             delegate:self
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                    otherButtonTitles:nil];
         [alertView show];
+#pragma clang diagnostic pop
     }
 #endif
 #endif
